@@ -1,0 +1,25 @@
+{
+  "name": "decorators-test",
+  "version": "0.0.1",
+  "scripts": {
+    "start": "node build/index.js",
+    "build": "tsc",
+    "clean": "rm -rf build/",
+    "lint": "eslint '**/*.ts'"
+  },
+  "devDependencies": {
+    "@types/node": "^15.0.3",
+    "@typescript-eslint/eslint-plugin": "^4.23.0",
+    "@typescript-eslint/parser": "^4.23.0",
+    "eslint": "^7.26.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-import-resolver-typescript": "^2.4.0",
+    "eslint-plugin-import": "^2.23.0",
+    "eslint-plugin-prettier": "^3.4.0",
+    "prettier": "^2.3.0",
+    "typescript": "^4.2.4"
+  },
+  "dependencies": {
+    "reflect-metadata": "^0.1.13"
+  }
+}
