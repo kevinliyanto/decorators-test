@@ -4,6 +4,7 @@
 */
 
 import { TYPE_METADATA, Type } from './constants';
+import { InjectableSecondClass } from './secondExample';
 
 function CD(something?: string): ClassDecorator {
   return <TFunction extends Function>(target: TFunction): void | TFunction => {
@@ -21,7 +22,7 @@ function MD(something?: string): MethodDecorator {
   };
 }
 
-const PDWA: PropertyDecorator = (
+const NFPD: PropertyDecorator = (
   target: Object,
   propertyKey: string | symbol,
 ): void => {
@@ -29,14 +30,33 @@ const PDWA: PropertyDecorator = (
 
   // If target[propertyKey] does not exist, set to 'test'
   if (!Reflect.get(target, propertyKey)) {
-    Reflect.set(target, propertyKey, 'test');
+    const type = Reflect.getMetadata('design:type', target, propertyKey);
+    // TODO: find a better way by comparing constructor/prototype perhaps (?)
+    switch (type.name) {
+      case String.name:
+        Reflect.set(
+          target,
+          propertyKey,
+          'this is a non-function property decorator',
+        );
+        break;
+      case InjectableSecondClass.name:
+        Reflect.set(target, propertyKey, new InjectableSecondClass());
+        break;
+      default:
+        break;
+    }
   }
 };
 
-function PD(something?: string): PropertyDecorator {
+function PD(something: string): PropertyDecorator {
   return (target: Object, propertyKey: string | symbol): void => {
     Reflect.defineMetadata(TYPE_METADATA, Type.PROPERTY, target, propertyKey);
+
+    if (!Reflect.get(target, propertyKey)) {
+      Reflect.set(target, propertyKey, something);
+    }
   };
 }
 
-export { CD, MD, PDWA, PD };
+export { CD, MD, NFPD, PD };

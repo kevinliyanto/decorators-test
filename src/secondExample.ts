@@ -1,0 +1,3 @@
+class InjectableSecondClass {}
+
+export { InjectableSecondClass };

@@ -3,6 +3,7 @@ import { ExampleClass } from './example';
 
 const instance = new ExampleClass();
 console.log(`ExampleClass.k: ${instance.k}`);
+console.log(`ExampleClass.secondClass: ${instance.secondClass}`);
 const prototype1 = Object.getPrototypeOf(instance);
 const prototype2 = ExampleClass.prototype;
 
@@ -58,3 +59,17 @@ Reflect.getMetadataKeys(ExampleClass.prototype, 'k').forEach((element) => {
     )}`,
   );
 });
+
+Reflect.getMetadataKeys(ExampleClass.prototype, 'secondClass').forEach(
+  (element) => {
+    console.log(
+      `Metadata for ${
+        ExampleClass.name
+      }.secondClass: ${element} -> ${Reflect.getMetadata(
+        element,
+        ExampleClass.prototype,
+        'secondClass',
+      )}`,
+    );
+  },
+);

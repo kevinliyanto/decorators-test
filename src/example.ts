@@ -1,16 +1,20 @@
-import { CD, MD, PD, PDWA } from './decorator';
+import { CD, MD, PD, NFPD } from './decorator';
+import { InjectableSecondClass } from './secondExample';
 
 @CD()
 class ExampleClass {
-  @PDWA
+  @NFPD
   private i: number = 0;
 
-  @PD()
-  private j: number = 1;
+  @PD('this is j')
+  private j!: string;
 
   // TODO: set value of k during runtime
-  @PDWA
+  @NFPD
   public k!: string;
+
+  @NFPD
+  public secondClass!: InjectableSecondClass;
 
   @MD()
   firstMethod(): void {
