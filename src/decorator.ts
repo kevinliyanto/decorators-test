@@ -31,16 +31,15 @@ const NFPD: PropertyDecorator = (
   // If target[propertyKey] does not exist, set to 'test'
   if (!Reflect.get(target, propertyKey)) {
     const type = Reflect.getMetadata('design:type', target, propertyKey);
-    // TODO: find a better way by comparing constructor/prototype perhaps (?)
-    switch (type.name) {
-      case String.name:
+    switch (type) {
+      case String:
         Reflect.set(
           target,
           propertyKey,
           'this is a non-function property decorator',
         );
         break;
-      case InjectableSecondClass.name:
+      case InjectableSecondClass:
         Reflect.set(target, propertyKey, new InjectableSecondClass());
         break;
       default:
